@@ -17,12 +17,25 @@ hasta::hasta(QWidget *parent) :
  }*/
 
     ui->setupUi(this);
+
     QPixmap img1("/home/oem/untitled/icon.png");
     QPixmap img2("/home/oem/untitled/doctor.jpeg");
     QPixmap img3("/home/oem/untitled/nurse.jpeg");
     QPixmap img4("/home/oem/untitled/patient.jpeg");
     ui->icon->setPixmap(img1);
     ui->right_icon->setPixmap(img4);
+    ui->isimler->setColumnCount(4);
+    ui->isimler->setRowCount(8);
+    ui->isimler->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+    QTableWidgetItem *h1 = new QTableWidgetItem("isim soyisim");
+    QTableWidgetItem *h2 = new QTableWidgetItem("Nabız");
+    QTableWidgetItem *h3 = new QTableWidgetItem("Tansiyon");
+    QTableWidgetItem *h4 = new QTableWidgetItem("Şeker");
+    ui->isimler->setHorizontalHeaderItem(0,h1);
+    ui->isimler->setHorizontalHeaderItem(1,h2);
+    ui->isimler->setHorizontalHeaderItem(2,h3);
+    ui->isimler->setHorizontalHeaderItem(3,h4);
 }
 
 hasta::~hasta()
