@@ -5,6 +5,7 @@
 #include <QTcpSocket>
 #include<QDebug>
 #include <QTcpServer>
+#include<QTableWidget>
 
 
 namespace Ui {
@@ -27,6 +28,14 @@ signals:
 private slots:
 
     void on_pushButton_clicked();
+
+    void on_isimler_cellChanged(int row, int column);
+
+    void on_isimler_itemSelectionChanged();
+
+    void on_isimler_itemChanged(QTableWidgetItem *item);
+
+    void on_isimler_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
 
 private:
     QTcpServer *server;

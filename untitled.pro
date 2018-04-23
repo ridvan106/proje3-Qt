@@ -27,7 +27,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    hasta.cpp
+    hasta.cpp \
+    patients.cpp \
+    person.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -38,4 +40,5 @@ FORMS += \
     hasta.ui
 
 DISTFILES += \
-    doctor.jpeg
+    doctor.jpeg \
+    patients.csv

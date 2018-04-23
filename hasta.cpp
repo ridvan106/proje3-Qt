@@ -1,5 +1,9 @@
 #include "hasta.h"
 #include "ui_hasta.h"
+#include "patients.cpp"
+#include <QLineEdit>
+#define COL  3
+
 
 hasta::hasta(QWidget *parent) :
     QDialog(parent),
@@ -17,6 +21,7 @@ hasta::hasta(QWidget *parent) :
  }*/
 
     ui->setupUi(this);
+    patients hastalar;
 
     QPixmap img1("/home/oem/untitled/icon.png");
     QPixmap img2("/home/oem/untitled/doctor.jpeg");
@@ -25,17 +30,41 @@ hasta::hasta(QWidget *parent) :
     ui->icon->setPixmap(img1);
     ui->right_icon->setPixmap(img4);
     ui->isimler->setColumnCount(4);
-    ui->isimler->setRowCount(8);
+    ui->isimler->setRowCount(--hastalar.patientsSize);
     ui->isimler->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
     QTableWidgetItem *h1 = new QTableWidgetItem("isim soyisim");
-    QTableWidgetItem *h2 = new QTableWidgetItem("Nabız");
-    QTableWidgetItem *h3 = new QTableWidgetItem("Tansiyon");
-    QTableWidgetItem *h4 = new QTableWidgetItem("Şeker");
+    QTableWidgetItem *h2 = new QTableWidgetItem("Kalp Değerleri");
+    QTableWidgetItem *h3 = new QTableWidgetItem("Kan Değerleri");
+    QTableWidgetItem *h4 = new QTableWidgetItem("Şeker Değerleri");
     ui->isimler->setHorizontalHeaderItem(0,h1);
     ui->isimler->setHorizontalHeaderItem(1,h2);
     ui->isimler->setHorizontalHeaderItem(2,h3);
     ui->isimler->setHorizontalHeaderItem(3,h4);
+
+
+
+    for (int var = 0; var < hastalar.patientsSize; ++var) {
+        QLabel *isim = new QLabel(ui->isimler);
+        hastalar.getVeri(var+1);
+        isim->setText(hastalar.getName()+ "  " + hastalar.getSurname());
+        ui->isimler->setCellWidget(var,0,isim);
+
+            QLineEdit *kalp = new QLineEdit(ui->isimler);
+            QLineEdit *seker = new QLineEdit(ui->isimler);
+            QLineEdit *kan = new QLineEdit(ui->isimler);
+
+            kalp->setText(hastalar.getHeart());
+            ui->isimler->setCellWidget(var,1,kalp);
+            kan->setText(hastalar.getBlood());
+            ui->isimler->setCellWidget(var,2,kan);
+            seker->setText(hastalar.getGlikoz());
+            ui->isimler->setCellWidget(var,3,seker);
+
+
+    }
+
+
 }
 
 hasta::~hasta()
@@ -46,11 +75,6 @@ hasta::~hasta()
 void hasta::on_pushButton_clicked()
 {
 
-    QString temp =ui->data->text();
-    //ui->icon->setText(temp);
-    QByteArray ba = temp.toLatin1();
-   // char a[1024] = ba.data();
-    sendData(ba.data());
 
 
 }
@@ -83,3 +107,5 @@ void hasta::newConnection(){
     //ui->isim->setText(data);
     socket->close();
 }
+
+
