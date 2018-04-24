@@ -29,7 +29,7 @@ hasta::hasta(QWidget *parent) :
     QPixmap img4("/home/oem/untitled/patient.jpeg");
     ui->icon->setPixmap(img1);
     ui->right_icon->setPixmap(img4);
-    ui->isimler->setColumnCount(4);
+    ui->isimler->setColumnCount(5);
     ui->isimler->setRowCount(--hastalar.patientsSize);
     ui->isimler->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
@@ -41,10 +41,39 @@ hasta::hasta(QWidget *parent) :
     ui->isimler->setHorizontalHeaderItem(1,h2);
     ui->isimler->setHorizontalHeaderItem(2,h3);
     ui->isimler->setHorizontalHeaderItem(3,h4);
-
-
-
     for (int var = 0; var < hastalar.patientsSize; ++var) {
+            QTableWidgetItem *isim = new QTableWidgetItem();
+            //isim->setObjectName((QString) var );
+            hastalar.getVeri(var+1);
+            isim->setText(hastalar.getName()+ "  " + hastalar.getSurname());
+            ui->isimler->setItem(var,0,isim);
+
+                QTableWidgetItem *kalp = new QTableWidgetItem();
+                QTableWidgetItem *seker = new QTableWidgetItem();
+                QTableWidgetItem *kan = new QTableWidgetItem();
+                QTableWidgetItem *gonder = new QTableWidgetItem("Gonder");
+
+
+                kalp->setTextAlignment(5);//center yapar
+
+                seker->setTextAlignment(5);
+                kan->setTextAlignment(5);
+
+
+                kalp->setText(hastalar.getHeart());
+                ui->isimler->setItem(var,1,kalp);
+                kan->setText(hastalar.getBlood());
+                ui->isimler->setItem(var,2,kan);
+                seker->setText(hastalar.getGlikoz());
+                ui->isimler->setItem(var,3,seker);
+                gonder->setTextAlignment(5);
+
+                gonder->setText("Gonder");
+                ui->isimler->setItem(var,4,gonder);
+
+
+    }
+    /*for (int var = 0; var < hastalar.patientsSize; ++var) {
         QLabel *isim = new QLabel(ui->isimler);
         hastalar.getVeri(var+1);
         isim->setText(hastalar.getName()+ "  " + hastalar.getSurname());
@@ -62,7 +91,7 @@ hasta::hasta(QWidget *parent) :
             ui->isimler->setCellWidget(var,3,seker);
 
 
-    }
+    }*/
 
 
 }
@@ -109,3 +138,14 @@ void hasta::newConnection(){
 }
 
 
+
+void hasta::on_isimler_cellClicked(int row, int column)
+{
+    QString temp = ui->isimler->item(row,column)->text();
+      if(temp.compare("Gonder") == 0){
+
+          ui->pushButton->setText(temp);
+      }
+
+      qDebug() <<temp;
+}

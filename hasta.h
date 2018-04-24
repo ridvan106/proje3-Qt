@@ -37,6 +37,8 @@ private slots:
 
     void on_isimler_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn);
 
+    void on_isimler_cellClicked(int row, int column);
+
 private:
     QTcpServer *server;
     Ui::hasta *ui;
