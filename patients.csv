@@ -1,3 +1,21 @@
 ID,Name,Surname,DoctorID,NurseID,Kalp,Kan,Şeker
 #15,Yılmaz,Edis,#1,#2,12,13,14
 #16,Fatih,Zengin,#3,#4,15,16,17
+
+string str={Yılmaz,Edis,#1,#2,12,13,14};
+char arr[100] ="yılmaz,edis,12,13,14";
+
+arr[0]=str.substr(0,find_first_of(","));
+
+string tokens=str.substr(str.find(",")+1);
+arr[1]=tokens.substr(tokens.at(0),find_first_of(","));
+
+string tokens2=tokens.substr(tokens.find(",")+1);
+string tokens3=tokens2.substr(tokens2.find(",")+1);
+string tokens4=tokens3.substr(tokens3.find(",")+1);
+arr[2]=tokens4.substr(tokens4.at(0),find_first_of(",");
+
+string tokens5=tokens4.substr(tokens4.find(",")+1);
+arr[3]=tokens5.substr(tokens5.at(0),find_first_of(",");
+
+string tokens6=tokens5.substr(tokens6.find(",")+1);

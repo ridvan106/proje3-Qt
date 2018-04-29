@@ -10,15 +10,6 @@ hasta::hasta(QWidget *parent) :
     ui(new Ui::hasta)
 
 {
-   /* server = new QTcpServer(this);
-    connect(server,SIGNAL(newConnection()),this,SLOT(newConnection()));
-
-    if(!server->listen(QHostAddress::Any,8081)){
-       qDebug() <<"server could not start";
- }else{
-
-     qDebug() <<"server start";
- }*/
 
     ui->setupUi(this);
     patients hastalar;
@@ -143,8 +134,27 @@ void hasta::on_isimler_cellClicked(int row, int column)
 {
     QString temp = ui->isimler->item(row,column)->text();
       if(temp.compare("Gonder") == 0){
+          QString NameSurname = ui->isimler->item(row,0)->text();
+          QString kalp = ui->isimler->item(row,1)->text();
+          QString kan = ui->isimler->item(row,2)->text();
+          QString Seker = ui->isimler->item(row,3)->text();
+          ui->pushButton->setText(NameSurname+" " + kalp + " " + kan+ " " +Seker );
+           server = new QTcpServer(this);
+           connect(server,SIGNAL(newConnection()),this,SLOT(newConnection()));
 
-          ui->pushButton->setText(temp);
+           QTcpSocket *tcpClient = new QTcpSocket(this);
+          // connect( tcpClient, SIGNAL(readyRead()), NULL );
+           tcpClient->connectToHost("127.0.0.1",8081);
+           if( tcpClient->waitForConnected() ) {
+                 tcpClient->write("kalp");
+                 tcpClient->close();
+              }
+
+           else{
+                ui->icon->setText("temp");
+           }
+
+
       }
 
       qDebug() <<temp;
